@@ -6,9 +6,11 @@ use App\Http\Controllers\Admin\VenueController as AdminVenueController;
 use App\Http\Controllers\Admin\CourtController;
 use App\Http\Controllers\VenueController; // Controller publik
 use App\Http\Controllers\BookingController;
-use App\Http\Controllers\PaymentController; 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Admin\PaymentController as AdminPaymentController; // <-- FIX: Ditambahkan alias agar tidak bentrok
 use App\Http\Controllers\Admin\BookingController as AdminBookingController; // <-- STEP 2: Tambah Import Admin BookingController dengan Alias
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -54,9 +56,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
 
-    Route::get('/admin', function () {
-        return 'Admin Panel CourtYK';
-    });
+    Route::get(
+        '/admin',
+        [DashboardController::class, 'index']
+    )->name('admin.dashboard');
 
     Route::resource('admin/venues', AdminVenueController::class)
         ->names('admin.venues');
@@ -94,6 +97,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
         '/admin/bookings/{booking}/cancel',
         [AdminBookingController::class, 'cancel']
     )->name('admin.bookings.cancel');
+
+    Route::get(
+        '/admin/reports',
+        [ReportController::class, 'index']
+    )->name('admin.reports.index');
 });
 
 require __DIR__ . '/auth.php';
