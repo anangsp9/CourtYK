@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\VenueController as AdminVenueController;
 use App\Http\Controllers\Admin\CourtController;
 use App\Http\Controllers\VenueController; // Controller publik
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentController; 
+use App\Http\Controllers\Admin\PaymentController as AdminPaymentController; // <-- FIX: Ditambahkan alias agar tidak bentrok
+use App\Http\Controllers\Admin\BookingController as AdminBookingController; // <-- STEP 2: Tambah Import Admin BookingController dengan Alias
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,6 +44,12 @@ Route::middleware('auth')->group(function () {
         '/my-bookings',
         [BookingController::class, 'index']
     )->name('bookings.index');
+
+    // Route Store Payment di dalam Group Auth (Menggunakan PaymentController milik User)
+    Route::post(
+        '/bookings/{booking}/payment',
+        [PaymentController::class, 'store']
+    )->name('payments.store');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -53,6 +62,38 @@ Route::middleware(['auth', 'admin'])->group(function () {
         ->names('admin.venues');
     Route::resource('admin/courts', CourtController::class)
         ->names('admin.courts');
+
+    // FIX: Menggunakan AdminPaymentController (milik Admin) agar mengarah ke controller yang benar
+    Route::get(
+        '/admin/payments',
+        [AdminPaymentController::class, 'index']
+    )->name('admin.payments.index');
+
+    Route::patch(
+        '/admin/payments/{payment}/approve',
+        [AdminPaymentController::class, 'approve']
+    )->name('admin.payments.approve');
+
+    Route::patch(
+        '/admin/payments/{payment}/reject',
+        [AdminPaymentController::class, 'reject']
+    )->name('admin.payments.reject');
+
+    // STEP 2: Tambahkan rute management booking dalam group admin (Menggunakan AdminBookingController)
+    Route::get(
+        '/admin/bookings',
+        [AdminBookingController::class, 'index']
+    )->name('admin.bookings.index');
+
+    Route::patch(
+        '/admin/bookings/{booking}/complete',
+        [AdminBookingController::class, 'complete']
+    )->name('admin.bookings.complete');
+
+    Route::patch(
+        '/admin/bookings/{booking}/cancel',
+        [AdminBookingController::class, 'cancel']
+    )->name('admin.bookings.cancel');
 });
 
 require __DIR__ . '/auth.php';

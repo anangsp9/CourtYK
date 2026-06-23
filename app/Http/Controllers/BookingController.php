@@ -14,7 +14,8 @@ class BookingController extends Controller
     public function index()
     {
         $bookings = Booking::with([
-            'court.venue'
+            'court.venue',
+            'payment'
         ])
             ->where('user_id', auth()->id())
             ->latest()
