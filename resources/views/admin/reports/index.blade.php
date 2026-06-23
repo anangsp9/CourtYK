@@ -1,4 +1,6 @@
-<x-app-layout>
+@extends('layouts.admin')
+
+@section('content')
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
 
         <h1 class="text-3xl font-bold text-gray-900 mb-8">
@@ -40,7 +42,7 @@
 
         </div>
 
-        {{-- TABEL PENELUSURAN REVENUE (Phase 11.4) --}}
+        {{-- TABEL PENELUSURAN REVENUE --}}
         <div class="mt-12">
             <div class="mb-4">
                 <h2 class="text-xl font-bold text-gray-900">
@@ -102,4 +104,4 @@
         </div>
 
     </div>
-</x-app-layout>
+@endsection

@@ -1,4 +1,6 @@
-<x-app-layout>
+@extends('layouts.admin')
+
+@section('content')
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
 
         <h1 class="text-3xl font-bold text-gray-900 mb-6">
@@ -17,7 +19,7 @@
                             <th class="px-6 py-4">Tanggal</th>
                             <th class="px-6 py-4">Jam</th>
                             <th class="px-6 py-4">Status</th>
-                            <th class="px-6 py-4 text-center">Aksi</th> {{-- Ditambahkan agar kolom sinkron --}}
+                            <th class="px-6 py-4 text-center">Aksi</th>
                         </tr>
                     </thead>
 
@@ -102,4 +104,4 @@
         </div>
 
     </div>
-</x-app-layout>
+@endsection
