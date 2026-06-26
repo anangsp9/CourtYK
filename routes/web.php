@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ReportController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 });
 
 // --- ROUTE PUBLIK UNTUK USER SIDE ---

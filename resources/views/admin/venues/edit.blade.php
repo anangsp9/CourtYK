@@ -8,7 +8,7 @@
         </h1>
 
         <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <form action="{{ route('admin.venues.update', $venue) }}" method="POST">
+            <form action="{{ route('admin.venues.update', $venue) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -43,6 +43,37 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Jam Tutup</label>
                         <input type="time" name="close_time" value="{{ old('close_time', \Carbon\Carbon::parse($venue->close_time)->format('H:i')) }}" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
                     </div>
+                </div>
+
+                {{-- STEP 8.3 — Tampilkan Gambar Lama --}}
+                @if($venue->image)
+                    <div class="mb-4">
+                        <label class="block font-medium mb-2">Gambar Saat Ini</label>
+                        <img
+                            src="{{ asset('storage/'.$venue->image) }}"
+                            alt="{{ $venue->name }}"
+                            class="w-40 h-40 object-cover rounded-lg border"
+                        >
+                    </div>
+                @endif
+
+                {{-- STEP 8.4 — Tambahkan Input Upload Baru --}}
+                <div class="mt-4 mb-6">
+                    <label class="block font-medium mb-2">Ganti Gambar</label>
+                    <input
+                        type="file"
+                        name="image"
+                        accept="image/*"
+                        class="block w-full border rounded p-2"
+                    >
+                    <p class="text-sm text-gray-500 mt-1">
+                        Kosongkan jika tidak ingin mengganti gambar.
+                    </p>
+                    @error('image')
+                        <p class="text-red-500 text-sm mt-1">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <div class="flex items-center gap-4">

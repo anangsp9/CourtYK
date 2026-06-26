@@ -7,16 +7,14 @@
             <h1 class="text-3xl font-bold text-gray-900">
                 Venue Management
             </h1>
-            
-            <a 
-                href="{{ route('admin.venues.create') }}"
-                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition"
-            >
+
+            <a href="{{ route('admin.venues.create') }}"
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition">
                 ➕ Tambah Venue
             </a>
         </div>
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="mb-4 p-4 bg-green-100 border border-green-200 text-green-800 rounded-lg shadow-sm">
                 {{ session('success') }}
             </div>
@@ -26,8 +24,10 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        <tr
+                            class="bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                             <th class="px-6 py-4">ID</th>
+                            <th class="px-6 py-4">Gambar</th>
                             <th class="px-6 py-4">Nama Venue</th>
                             <th class="px-6 py-4">Alamat</th>
                             <th class="px-6 py-4 text-center">Aksi</th>
@@ -40,6 +40,20 @@
                                 <td class="px-6 py-4 font-medium text-gray-900">
                                     #{{ $venue->id }}
                                 </td>
+
+                                {{-- Thumbnail Venue --}}
+                                <td class="px-4 py-2">
+                                    @if ($venue->image)
+                                        <img src="{{ asset('storage/' . $venue->image) }}" alt="{{ $venue->name }}"
+                                            class="w-20 h-20 object-cover rounded-lg border">
+                                    @else
+                                        <div
+                                            class="w-20 h-20 bg-gray-100 border rounded-lg flex items-center justify-center text-xs text-gray-400">
+                                            No Image
+                                        </div>
+                                    @endif
+                                </td>
+
                                 <td class="px-6 py-4 font-medium text-gray-900">
                                     {{ $venue->name }}
                                 </td>
@@ -48,25 +62,18 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center justify-center gap-3">
-                                        <a 
-                                            href="{{ route('admin.venues.edit', $venue) }}"
-                                            class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded shadow-sm transition"
-                                        >
+                                        <a href="{{ route('admin.venues.edit', $venue) }}"
+                                            class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded shadow-sm transition">
                                             Edit
                                         </a>
-                                        
-                                        <form 
-                                            action="{{ route('admin.venues.destroy', $venue) }}" 
-                                            method="POST" 
-                                            class="inline"
-                                        >
+
+                                        <form action="{{ route('admin.venues.destroy', $venue) }}" method="POST"
+                                            class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button 
-                                                type="submit" 
+                                            <button type="submit"
                                                 onclick="return confirm('Apakah Anda yakin ingin menghapus venue ini?')"
-                                                class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded shadow-sm transition"
-                                            >
+                                                class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded shadow-sm transition">
                                                 Delete
                                             </button>
                                         </form>
@@ -75,7 +82,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-6 py-8 text-center text-gray-500 italic">
+                                {{-- Diubah menjadi colspan 5 karena kolom bertambah 1 --}}
+                                <td colspan="5" class="px-6 py-8 text-center text-gray-500 italic">
                                     Belum ada data venue.
                                 </td>
                             </tr>

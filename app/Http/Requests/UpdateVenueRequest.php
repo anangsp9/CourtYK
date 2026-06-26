@@ -19,7 +19,12 @@ class UpdateVenueRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'open_time' => ['required'],
             'close_time' => ['required'],
-            'image' => ['nullable', 'image', 'max:2048'],
+            'image' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
         ];
     }
 }
