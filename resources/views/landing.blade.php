@@ -232,11 +232,49 @@
             <div class="flex items-center gap-4">
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}"
-                            class="bg-primary-fixed text-on-primary p-2 rounded-full electric-glow hover:scale-105 active:scale-95 transition-all flex items-center justify-center"
-                            title="Dashboard">
-                            <span class="material-symbols-outlined">person</span>
-                        </a>
+                        <!-- Settings Dropdown dengan Ikon Kustom Anda -->
+                        <div class="flex items-center">
+                            <x-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    <button
+                                        class="bg-primary-fixed text-on-primary p-2 rounded-full electric-glow hover:scale-105 active:scale-95 transition-all flex items-center justify-center focus:outline-none"
+                                        title="{{ Auth::user()->name }}">
+                                        <span class="material-symbols-outlined">person</span>
+                                    </button>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <!-- Tampilkan Nama User di paling atas dropdown (opsional namun informatif) -->
+                                    <div class="block px-4 py-2 text-xs text-gray-400 border-b border-gray-100">
+                                        {{ __('Logged in as: ') }} <strong>{{ Auth::user()->name }}</strong>
+                                    </div>
+
+                                    <!-- Tautan ke Dashboard -->
+                                    <x-dropdown-link :href="route('dashboard')">
+                                        {{ __('Dashboard') }}
+                                    </x-dropdown-link>
+
+                                    <!-- Tautan ke Edit Profile -->
+                                    <x-dropdown-link :href="route('profile.edit')">
+                                        {{ __('Profile') }}
+                                    </x-dropdown-link>
+
+                                    <hr class="border-gray-100my-1">
+
+                                    <!-- Proses Keluar Akun (Authentication) -->
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+
+                                        <x-dropdown-link :href="route('logout')"
+                                            onclick="event.preventDefault();
+                                    this.closest('form').submit();"
+                                            class="text-red-600 hover:text-red-700">
+                                            {{ __('Log Out') }}
+                                        </x-dropdown-link>
+                                    </form>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
                     @else
                         <a href="{{ route('login') }}"
                             class="text-white font-title-md text-sm px-4 py-2 hover:bg-white/5 rounded-full transition-all">

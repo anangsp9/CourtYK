@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
         '/bookings/{booking}/payment',
         [PaymentController::class, 'store']
     )->name('payments.store');
+
+    Route::get('/venues/{venue}', [VenueController::class, 'show'])->name('venues.show');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
