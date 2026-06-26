@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PaymentController as AdminPaymentController; // <
 use App\Http\Controllers\Admin\BookingController as AdminBookingController; // <-- STEP 2: Tambah Import Admin BookingController dengan Alias
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return view('landing');
@@ -63,6 +64,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         [DashboardController::class, 'index']
     )->name('admin.dashboard');
 
+    Route::resource('admin/users', UserController::class)
+        ->names('admin.users');
     Route::resource('admin/venues', AdminVenueController::class)
         ->names('admin.venues');
     Route::resource('admin/courts', CourtController::class)
