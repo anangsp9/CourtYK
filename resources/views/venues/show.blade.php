@@ -1,4 +1,11 @@
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap">
+
 <x-app-layout>
+    @php
+        $facilities = config('facilities');
+    @endphp
+
     <div class="max-w-5xl mx-auto py-8 px-4">
 
         {{-- Foto Venue --}}
@@ -37,6 +44,44 @@
                 {{ \Carbon\Carbon::parse($venue->close_time)->format('H:i') }}
             </p>
         </div>
+
+        {{-- Fasilitas --}}
+        @if (filled($venue->featured_facilities))
+
+            <div class="mt-8 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">
+                    Fasilitas Unggulan
+                </h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+                    @foreach ($venue->featured_facilities as $key)
+                        @php
+                            $facility = $facilities[$key] ?? null;
+                        @endphp
+
+                        @if ($facility)
+                            <div
+                                class="rounded-xl border border-gray-200 bg-white p-5 flex flex-col items-center text-center hover:border-blue-500 hover:shadow-md transition-all duration-200">
+
+                                <span class="material-symbols-outlined text-4xl text-blue-600">
+                                    {{ $facility['icon'] }}
+                                </span>
+
+                                <span class="mt-3 text-sm font-medium text-gray-700">
+                                    {{ $facility['label'] }}
+                                </span>
+
+                            </div>
+                        @endif
+                    @endforeach
+
+                </div>
+
+            </div>
+
+        @endif
 
         {{-- Daftar Court --}}
         <div class="mt-8">

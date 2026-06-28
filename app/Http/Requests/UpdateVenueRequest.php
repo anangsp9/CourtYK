@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateVenueRequest extends FormRequest
 {
@@ -24,6 +25,14 @@ class UpdateVenueRequest extends FormRequest
                 'image',
                 'mimes:jpg,jpeg,png,webp',
                 'max:2048',
+            ],
+            'featured_facilities' => [
+                'nullable',
+                'array',
+            ],
+            'featured_facilities.*' => [
+                'string',
+                Rule::in(array_keys(config('facilities'))),
             ],
         ];
     }

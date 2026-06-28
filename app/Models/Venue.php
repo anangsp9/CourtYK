@@ -14,7 +14,15 @@ class Venue extends Model
         'open_time',
         'close_time',
         'image',
+        'featured_facilities',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'featured_facilities' => 'array',
+        ];
+    }
 
     public function courts()
     {
