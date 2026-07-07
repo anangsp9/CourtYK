@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCourtRequest extends FormRequest
 {
@@ -25,7 +26,16 @@ class UpdateCourtRequest extends FormRequest
         return [
             'venue_id' => ['required', 'exists:venues,id'],
             'name' => ['required', 'string', 'max:255'],
-            'price_per_hour' => ['required', 'numeric', 'min:0'],
+            'floor_type' => [
+                'required',
+                Rule::in(array_keys(config('courts.floor_types'))),
+            ],
+
+            'court_type' => [
+                'required',
+                Rule::in(array_keys(config('courts.court_types'))),
+            ],
+            'price_per_hour' => ['required', 'integer', 'min:0'],
         ];
     }
 }

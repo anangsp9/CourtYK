@@ -97,6 +97,28 @@
                             <h3 class="text-lg font-semibold text-gray-900">
                                 🏸 {{ $court->name }}
                             </h3>
+
+                            @php
+                                $floor = config('courts.floor_types.' . $court->floor_type);
+                                $type = config('courts.court_types.' . $court->court_type);
+                            @endphp
+
+                            @if ($floor || $type)
+                                <p class="mt-1 text-sm text-gray-500">
+                                    @if ($floor)
+                                        {{ $floor['label'] }}
+                                    @endif
+
+                                    @if ($floor && $type)
+                                        &bull;
+                                    @endif
+
+                                    @if ($type)
+                                        {{ $type['label'] }}
+                                    @endif
+                                </p>
+                            @endif
+
                             <p class="text-blue-600 font-medium mt-1">
                                 Rp {{ number_format($court->price_per_hour, 0, ',', '.') }} <span
                                     class="text-gray-500 text-sm">/ jam</span>

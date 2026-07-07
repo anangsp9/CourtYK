@@ -5,14 +5,18 @@
 <div class="max-w-3xl mx-auto py-8 px-4">
 
     <h1 class="text-3xl font-bold mb-8">
-        Tambah Court Baru
+        Edit Court
     </h1>
 
     <div class="bg-white rounded-lg border p-6 shadow-sm">
 
-        <form action="{{ route('admin.courts.store') }}" method="POST">
+        <form
+            action="{{ route('admin.courts.update', $court) }}"
+            method="POST"
+        >
 
             @csrf
+            @method('PUT')
 
             @include('admin.courts._form')
 
@@ -22,7 +26,7 @@
                     type="submit"
                     class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                 >
-                    Simpan Court
+                    Perbarui Court
                 </button>
 
                 <a

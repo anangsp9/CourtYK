@@ -59,15 +59,31 @@ class CourtController extends Controller
      */
     public function edit(Court $court)
     {
-        //
+        $venues = Venue::orderBy('name')->get();
+
+        return view(
+            'admin.courts.edit',
+            compact('court', 'venues')
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCourtRequest $request, Court $court)
-    {
-        //
+    public function update(
+        UpdateCourtRequest $request,
+        Court $court
+    ) {
+        $court->update(
+            $request->validated()
+        );
+
+        return redirect()
+            ->route('admin.courts.index')
+            ->with(
+                'success',
+                'Court berhasil diperbarui.'
+            );
     }
     /**
      * Remove the specified resource from storage.
