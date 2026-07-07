@@ -182,12 +182,12 @@
         <div class="flex items-center justify-between px-6 md:px-12 h-20 w-full max-w-[1440px] mx-auto">
             <a href="{{ url('/') }}" class="flex items-center gap-2">
                 <span class="text-2xl font-black italic tracking-tighter text-white">
-                    Court<span class="text-primary-fixed">YK</span>
+                    Court<span class="text-primary-fixed">Glass</span>
                 </span>
             </a>
             <nav class="hidden md:flex items-center gap-10">
                 <a class="text-white/50 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase" href="{{ url('/') }}">Home</a>
-                <a class="text-white/50 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase" href="{{ route('dashboard') }}">Dashboard</a>
+                <a class="text-white/50 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase" href="{{ route('venues.index') }}">Courts</a>
                 <a class="text-primary-fixed font-bold text-sm tracking-wide uppercase drop-shadow-[0_0_10px_rgba(202,243,0,0.3)]" href="{{ route('bookings.index') }}">Bookings</a>
                 <a class="text-white/50 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase" href="{{ route('profile.edit') }}">Profile</a>
             </nav>
@@ -221,20 +221,6 @@
             <div class="mb-8 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 font-medium flex items-center gap-3 backdrop-blur-sm">
                 <span class="material-symbols-outlined text-[20px]">error</span>
                 {{ session('error') }}
-            </div>
-        @endif
-
-        @if($errors->any())
-            <div class="mb-8 p-4 rounded-xl bg-red-500/10 border border-red-500/20 backdrop-blur-sm">
-                <div class="flex items-center gap-3 mb-2 text-red-400 font-medium">
-                    <span class="material-symbols-outlined text-[20px]">error</span>
-                    Terjadi kesalahan:
-                </div>
-                <ul class="space-y-1 ml-9">
-                    @foreach($errors->all() as $error)
-                        <li class="text-red-400/80 text-sm">• {{ $error }}</li>
-                    @endforeach
-                </ul>
             </div>
         @endif
 
@@ -327,22 +313,16 @@
                                         </div>
                                         <div class="flex gap-2">
                                             <div class="relative group flex-1">
-                                                <input type="file" name="proof_image" required onchange="this.nextElementSibling.querySelector('span.file-label').textContent = this.files[0]?.name || 'Pilih File'" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
+                                                <input type="file" name="proof_image" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
                                                 <div class="w-full h-full py-2.5 px-4 rounded-lg upload-portal text-white/60 text-xs font-medium flex items-center justify-center gap-2">
                                                     <span class="material-symbols-outlined text-[18px]">cloud_upload</span>
-                                                    <span class="file-label truncate max-w-[100px] block">Pilih File</span>
+                                                    Pilih File
                                                 </div>
                                             </div>
                                             <button type="submit" class="px-6 py-2.5 rounded-lg bg-primary-fixed text-black font-bold text-sm hover:bg-white hover:shadow-[0_0_20px_rgba(202,243,0,0.4)] transition-all">
                                                 Upload
                                             </button>
                                         </div>
-                                        @error('proof_image')
-                                            <p class="text-red-400 text-xs mt-1 flex items-center gap-1">
-                                                <span class="material-symbols-outlined text-[14px]">warning</span>
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
                                     </form>
                                 @else
                                     <div class="flex items-start gap-2 text-xs text-white/70 bg-blue-500/5 p-3 rounded-lg border border-blue-500/10">
