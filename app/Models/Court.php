@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Court extends Model
 {
+    protected $casts = [
+        'price_per_hour' => 'integer',
+    ];
+
     protected $fillable = [
         'venue_id',
         'name',
