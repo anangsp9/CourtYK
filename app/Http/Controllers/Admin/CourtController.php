@@ -90,6 +90,10 @@ class CourtController extends Controller
      */
     public function destroy(Court $court)
     {
-        //
+        $court->delete();
+
+        return redirect()
+            ->route('admin.courts.index')
+            ->with('success', 'Court berhasil dihapus.');
     }
 }
