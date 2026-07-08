@@ -209,7 +209,7 @@
                             <label class="block font-label-sm text-label-sm text-on-surface/80 mb-2 ml-1" for="email">EMAIL ADDRESS</label>
                             <div class="relative">
                                 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/40">mail</span>
-                                <input class="input-glass w-full pl-12 pr-4 py-4 rounded-full text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
+                                <input class="input-glass bg-transparent w-full pl-12 pr-4 py-4 rounded-full text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
                                        id="email" 
                                        type="email" 
                                        name="email" 
@@ -226,7 +226,7 @@
                             <label class="block font-label-sm text-label-sm text-on-surface/80 mb-2 ml-1" for="password">PASSWORD</label>
                             <div class="relative">
                                 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/40">lock</span>
-                                <input class="input-glass w-full pl-12 pr-4 py-4 rounded-full text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
+                                <input class="input-glass bg-transparent w-full pl-12 pr-4 py-4 rounded-full text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
                                        id="password" 
                                        type="password" 
                                        name="password" 

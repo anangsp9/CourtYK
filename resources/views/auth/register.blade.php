@@ -201,7 +201,7 @@
 
                     <div class="space-y-2">
                         <label class="block font-label-sm text-label-sm text-on-surface/50 ml-1 uppercase" for="name">Full Name</label>
-                        <input class="input-glass w-full h-14 px-5 rounded-lg text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
+                        <input class="input-glass bg-transparent w-full h-14 px-5 rounded-lg text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
                                id="name" 
                                type="text" 
                                name="name" 
@@ -215,7 +215,7 @@
 
                     <div class="space-y-2">
                         <label class="block font-label-sm text-label-sm text-on-surface/50 ml-1 uppercase" for="email">Email Address</label>
-                        <input class="input-glass w-full h-14 px-5 rounded-lg text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
+                        <input class="input-glass bg-transparent w-full h-14 px-5 rounded-lg text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
                                id="email" 
                                type="email" 
                                name="email" 
@@ -229,7 +229,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="space-y-2">
                             <label class="block font-label-sm text-label-sm text-on-surface/50 ml-1 uppercase" for="password">Password</label>
-                            <input class="input-glass w-full h-14 px-5 rounded-lg text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
+                            <input class="input-glass bg-transparent w-full h-14 px-5 rounded-lg text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
                                    id="password" 
                                    type="password" 
                                    name="password" 
@@ -241,7 +241,7 @@
 
                         <div class="space-y-2">
                             <label class="block font-label-sm text-label-sm text-on-surface/50 ml-1 uppercase" for="password_confirmation">Confirm</label>
-                            <input class="input-glass w-full h-14 px-5 rounded-lg text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
+                            <input class="input-glass bg-transparent w-full h-14 px-5 rounded-lg text-primary placeholder:text-on-surface/30 focus:ring-0 focus:ring-offset-0" 
                                    id="password_confirmation" 
                                    type="password" 
                                    name="password_confirmation" 

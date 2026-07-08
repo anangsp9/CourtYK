@@ -189,6 +189,8 @@
             background-repeat: no-repeat;
             background-size: 1.5em 1.5em;
         }
+
+        [x-cloak] { display: none !important; }
     </style>
 
     <script id="tailwind-config">
@@ -237,15 +239,37 @@
                 <a class="text-white/50 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase @if(request()->routeIs('profile.*') || request()->routeIs('dashboard')) text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)] @endif" href="{{ route('profile.edit') }}">Profile</a>
             </nav>
             <div class="flex items-center gap-5">
-                <div class="flex items-center gap-4 pl-5 border-l border-white/10">
-                    <div class="hidden md:block text-right">
-                        <p class="text-sm font-bold text-white tracking-wide">{{ auth()->user()?->name ?? 'User' }}</p>
-                        <p class="text-xs text-primary-fixed/80 font-medium">Pro Player</p>
-                    </div>
-                    <div class="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-primary-fixed/20 to-primary-fixed shadow-[0_0_15px_rgba(202,243,0,0.2)]">
-                        <div class="w-full h-full rounded-full bg-[#2a2a2a] flex items-center justify-center text-white font-bold text-sm">
-                            {{ substr(auth()->user()?->name ?? 'U', 0, 1) }}
+                <div class="relative" x-data="{ open: false }">
+                    <div class="flex items-center gap-4 pl-5 border-l border-white/10 cursor-pointer" @click="open = !open">
+                        <div class="hidden md:block text-right">
+                            <p class="text-sm font-bold text-white tracking-wide">{{ auth()->user()?->name ?? 'User' }}</p>
+                            <p class="text-xs text-primary-fixed/80 font-medium">Pro Player</p>
                         </div>
+                        <div class="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-primary-fixed/20 to-primary-fixed shadow-[0_0_15px_rgba(202,243,0,0.2)]">
+                            <div class="w-full h-full rounded-full bg-[#2a2a2a] flex items-center justify-center text-white font-bold text-sm">
+                                {{ substr(auth()->user()?->name ?? 'U', 0, 1) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="open" @click.away="open = false" x-cloak
+                         class="absolute right-0 top-full mt-3 w-56 glass-card rounded-2xl p-2 z-50"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 scale-95"
+                         x-transition:enter-end="opacity-100 scale-100">
+                        <a href="{{ route('profile.edit') }}" @click="open = false"
+                           class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 hover:text-white transition-all text-sm">
+                            <span class="material-symbols-outlined text-[18px]">account_circle</span>
+                            Profile
+                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" @click="open = false"
+                                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all text-sm mt-1">
+                                <span class="material-symbols-outlined text-[18px]">logout</span>
+                                Logout
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
