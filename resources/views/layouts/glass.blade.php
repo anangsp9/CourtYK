@@ -7,8 +7,10 @@
     <title>@yield('title', 'CourtGlass')</title>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
 
     <style>
         body {
@@ -26,9 +28,9 @@
             height: 100vh;
             z-index: -1;
             background-image:
-                radial-gradient(at 80% 0%, hsla(68,100%,48%,0.08) 0px, transparent 50%),
-                radial-gradient(at 0% 50%, hsla(0,0%,100%,0.03) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, hsla(68,100%,48%,0.05) 0px, transparent 50%);
+                radial-gradient(at 80% 0%, hsla(68, 100%, 48%, 0.08) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(0, 0%, 100%, 0.03) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(68, 100%, 48%, 0.05) 0px, transparent 50%);
         }
 
         .blob {
@@ -39,12 +41,32 @@
             opacity: 0.4;
             animation: float 20s infinite ease-in-out alternate;
         }
-        .blob-1 { top: 10%; left: -10%; width: 400px; height: 400px; background: rgba(255,255,255,0.03); }
-        .blob-2 { bottom: -20%; right: 10%; width: 500px; height: 500px; background: rgba(202,243,0,0.05); animation-delay: -5s; }
+
+        .blob-1 {
+            top: 10%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .blob-2 {
+            bottom: -20%;
+            right: 10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(202, 243, 0, 0.05);
+            animation-delay: -5s;
+        }
 
         @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 30px) scale(1.1); }
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(50px, 30px) scale(1.1);
+            }
         }
 
         .glass-panel {
@@ -69,9 +91,11 @@
         .glass-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
+            top: 0;
+            left: 0;
+            right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -104,8 +128,8 @@
         }
 
         .icon-glass {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(8px);
         }
 
@@ -114,19 +138,21 @@
         }
 
         .input-glass {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(8px);
             transition: all 0.3s;
         }
+
         .input-glass:focus {
-            background: rgba(255,255,255,0.06);
+            background: rgba(255, 255, 255, 0.06);
             border-color: rgba(202, 243, 0, 0.4);
             box-shadow: 0 0 20px rgba(202, 243, 0, 0.1);
             outline: none;
         }
+
         .input-glass:hover {
-            border-color: rgba(255,255,255,0.2);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .btn-lime {
@@ -135,6 +161,7 @@
             font-weight: 700;
             transition: all 0.3s;
         }
+
         .btn-lime:hover {
             background: #fff;
             box-shadow: 0 0 20px rgba(202, 243, 0, 0.4);
@@ -153,18 +180,30 @@
         }
 
         @keyframes liquid-pulse {
-            0%, 100% { transform: scale(1); opacity: 0.6; box-shadow: 0 0 8px currentColor; }
-            50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 12px currentColor; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+                box-shadow: 0 0 8px currentColor;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+                box-shadow: 0 0 12px currentColor;
+            }
         }
 
         .upload-portal {
-            background: radial-gradient(circle at center, rgba(202,243,0,0.05) 0%, transparent 70%);
-            border: 1px dashed rgba(202,243,0,0.3);
+            background: radial-gradient(circle at center, rgba(202, 243, 0, 0.05) 0%, transparent 70%);
+            border: 1px dashed rgba(202, 243, 0, 0.3);
             transition: all 0.3s;
         }
+
         .upload-portal:hover {
-            background: radial-gradient(circle at center, rgba(202,243,0,0.1) 0%, transparent 80%);
-            border-color: rgba(202,243,0,0.6);
+            background: radial-gradient(circle at center, rgba(202, 243, 0, 0.1) 0%, transparent 80%);
+            border-color: rgba(202, 243, 0, 0.6);
             transform: scale(1.02);
         }
 
@@ -190,7 +229,9 @@
             background-size: 1.5em 1.5em;
         }
 
-        [x-cloak] { display: none !important; }
+        [x-cloak] {
+            display: none !important;
+        }
     </style>
 
     <script id="tailwind-config">
@@ -233,39 +274,57 @@
                 </span>
             </a>
             <nav class="hidden md:flex items-center gap-10">
-                <a class="text-white/50 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase" href="{{ url('/') }}">Home</a>
-                <a class="text-white/50 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase" href="{{ route('dashboard') }}">Dashboard</a>
-                <a class="text-white/50 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase @if(request()->routeIs('bookings.*')) text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)] @endif" href="{{ route('bookings.index') }}">Bookings</a>
-                <a class="text-white/50 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase @if(request()->routeIs('profile.*') || request()->routeIs('dashboard')) text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)] @endif" href="{{ route('profile.edit') }}">Profile</a>
+                {{-- Home --}}
+                <a class="text-sm font-medium tracking-wide uppercase transition-colors 
+        {{ request()->is('/') ? 'text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)]' : 'text-white/50 hover:text-white' }}"
+                    href="{{ url('/') }}">Home</a>
+
+                {{-- Dashboard --}}
+                <a class="text-sm font-medium tracking-wide uppercase transition-colors 
+        {{ request()->routeIs('dashboard') ? 'text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)]' : 'text-white/50 hover:text-white' }}"
+                    href="{{ route('dashboard') }}">Dashboard</a>
+
+                {{-- Bookings --}}
+                <a class="text-sm font-medium tracking-wide uppercase transition-colors 
+        {{ request()->routeIs('bookings.*') ? 'text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)]' : 'text-white/50 hover:text-white' }}"
+                    href="{{ route('bookings.index') }}">Bookings</a>
+
+                {{-- Profile --}}
+                <a class="text-sm font-medium tracking-wide uppercase transition-colors 
+        {{ request()->routeIs('profile.*') ? 'text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)]' : 'text-white/50 hover:text-white' }}"
+                    href="{{ route('profile.edit') }}">Profile</a>
             </nav>
             <div class="flex items-center gap-5">
                 <div class="relative" x-data="{ open: false }">
-                    <div class="flex items-center gap-4 pl-5 border-l border-white/10 cursor-pointer" @click="open = !open">
+                    <div class="flex items-center gap-4 pl-5 border-l border-white/10 cursor-pointer"
+                        @click="open = !open">
                         <div class="hidden md:block text-right">
-                            <p class="text-sm font-bold text-white tracking-wide">{{ auth()->user()?->name ?? 'User' }}</p>
+                            <p class="text-sm font-bold text-white tracking-wide">{{ auth()->user()?->name ?? 'User' }}
+                            </p>
                             <p class="text-xs text-primary-fixed/80 font-medium">Pro Player</p>
                         </div>
-                        <div class="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-primary-fixed/20 to-primary-fixed shadow-[0_0_15px_rgba(202,243,0,0.2)]">
-                            <div class="w-full h-full rounded-full bg-[#2a2a2a] flex items-center justify-center text-white font-bold text-sm">
+                        <div
+                            class="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-primary-fixed/20 to-primary-fixed shadow-[0_0_15px_rgba(202,243,0,0.2)]">
+                            <div
+                                class="w-full h-full rounded-full bg-[#2a2a2a] flex items-center justify-center text-white font-bold text-sm">
                                 {{ substr(auth()->user()?->name ?? 'U', 0, 1) }}
                             </div>
                         </div>
                     </div>
 
                     <div x-show="open" @click.away="open = false" x-cloak
-                         class="absolute right-0 top-full mt-3 w-56 glass-card rounded-2xl p-2 z-50"
-                         x-transition:enter="transition ease-out duration-200"
-                         x-transition:enter-start="opacity-0 scale-95"
-                         x-transition:enter-end="opacity-100 scale-100">
+                        class="absolute right-0 top-full mt-3 w-56 glass-card rounded-2xl p-2 z-50"
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
                         <a href="{{ route('profile.edit') }}" @click="open = false"
-                           class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 hover:text-white transition-all text-sm">
+                            class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 hover:text-white transition-all text-sm">
                             <span class="material-symbols-outlined text-[18px]">account_circle</span>
                             Profile
                         </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" @click="open = false"
-                                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all text-sm mt-1">
+                                class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all text-sm mt-1">
                                 <span class="material-symbols-outlined text-[18px]">logout</span>
                                 Logout
                             </button>
@@ -279,15 +338,17 @@
     <main class="pt-32 pb-32 px-4 md:px-12 max-w-[1440px] mx-auto min-h-screen relative z-10">
 
         {{-- Flash Messages --}}
-        @if(session('success'))
-            <div class="mb-8 p-4 rounded-xl bg-primary-fixed/10 border border-primary-fixed/20 text-primary-fixed font-medium flex items-center gap-3 backdrop-blur-sm">
+        @if (session('success'))
+            <div
+                class="mb-8 p-4 rounded-xl bg-primary-fixed/10 border border-primary-fixed/20 text-primary-fixed font-medium flex items-center gap-3 backdrop-blur-sm">
                 <span class="material-symbols-outlined text-[20px]">check_circle</span>
                 {{ session('success') }}
             </div>
         @endif
 
-        @if(session('error'))
-            <div class="mb-8 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 font-medium flex items-center gap-3 backdrop-blur-sm">
+        @if (session('error'))
+            <div
+                class="mb-8 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 font-medium flex items-center gap-3 backdrop-blur-sm">
                 <span class="material-symbols-outlined text-[20px]">error</span>
                 {{ session('error') }}
             </div>
@@ -298,24 +359,46 @@
     </main>
 
     {{-- BottomNavBar (Mobile only) --}}
-    <nav class="md:hidden fixed bottom-0 w-full z-50 glass-panel border-t border-white/10 rounded-t-2xl shadow-[0px_-20px_40px_rgba(0,0,0,0.5)]">
+    <nav
+        class="md:hidden fixed bottom-0 w-full z-50 glass-panel border-t border-white/10 rounded-t-2xl shadow-[0px_-20px_40px_rgba(0,0,0,0.5)]">
         <div class="flex justify-around items-center pt-4 pb-8 px-4 w-full">
-            <a class="flex flex-col items-center gap-1.5 text-white/40 @if(request()->routeIs('dashboard')) text-primary-fixed @endif" href="{{ route('dashboard') }}">
-                <span class="material-symbols-outlined">stadium</span>
+
+            {{-- Home --}}
+            <a class="flex flex-col items-center gap-1.5 transition-all
+                {{ request()->is('/') ? 'text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)]' : 'text-white/40' }}"
+                href="{{ url('/') }}">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: 'FILL' {{ request()->is('/') ? '1' : '0' }};">home</span>
                 <span class="text-[10px] font-medium tracking-wide uppercase">Home</span>
             </a>
-            <a class="flex flex-col items-center gap-1.5 text-white/40 @if(request()->routeIs('venues.*')) text-primary-fixed @endif" href="{{ route('venues.index') }}">
-                <span class="material-symbols-outlined">grid_view</span>
-                <span class="text-[10px] font-medium tracking-wide uppercase">Courts</span>
+
+            {{-- Dashboard --}}
+            <a class="flex flex-col items-center gap-1.5 transition-all
+                {{ request()->routeIs('dashboard') ? 'text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)]' : 'text-white/40' }}"
+                href="{{ route('dashboard') }}">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: 'FILL' {{ request()->routeIs('dashboard') ? '1' : '0' }};">stadium</span>
+                <span class="text-[10px] font-medium tracking-wide uppercase">Dashboard</span>
             </a>
-            <a class="flex flex-col items-center gap-1.5 text-white/40 @if(request()->routeIs('bookings.*')) text-primary-fixed @endif" href="{{ route('bookings.index') }}">
-                <span class="material-symbols-outlined @if(request()->routeIs('bookings.*')) drop-shadow-[0_0_10px_rgba(202,243,0,0.5)] @endif" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
-                <span class="text-[10px] font-bold tracking-wide uppercase">Bookings</span>
+
+            {{-- Bookings --}}
+            <a class="flex flex-col items-center gap-1.5 transition-all
+                {{ request()->routeIs('bookings.*') ? 'text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)]' : 'text-white/40' }}"
+                href="{{ route('bookings.index') }}">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: 'FILL' {{ request()->routeIs('bookings.*') ? '1' : '0' }};">confirmation_number</span>
+                <span class="text-[10px] tracking-wide uppercase">Bookings</span>
             </a>
-            <a class="flex flex-col items-center gap-1.5 text-white/40 @if(request()->routeIs('profile.*')) text-primary-fixed @endif" href="{{ route('profile.edit') }}">
-                <span class="material-symbols-outlined">account_circle</span>
-                <span class="text-[10px] font-medium tracking-wide uppercase">Profile</span>
+
+            {{-- Profile --}}
+            <a class="flex flex-col items-center gap-1.5 transition-all
+                {{ request()->routeIs('profile.*') ? 'text-primary-fixed font-bold drop-shadow-[0_0_10px_rgba(202,243,0,0.3)]' : 'text-white/40' }}"
+                href="{{ route('profile.edit') }}">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: 'FILL' {{ request()->routeIs('profile.*') ? '1' : '0' }};">account_circle</span>
+                <span class="text-[10px] tracking-wide uppercase">Profile</span>
             </a>
+
         </div>
     </nav>
 
@@ -323,4 +406,5 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 </body>
+
 </html>
