@@ -293,8 +293,8 @@
         </nav>
     </header>
 
-    <main class="pt-16 pb-24">
-        <section class="relative min-h-[921px] flex flex-col items-center justify-center px-gutter overflow-hidden">
+    <main class="pt-16">
+        <section class="relative min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-gutter overflow-hidden py-12 lg:py-0">
             <div class="relative z-10 w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="space-y-8">
                     <div class="inline-flex items-center gap-2 px-4 py-2 glass-card rounded-full">
