@@ -310,14 +310,14 @@
                         instant availability, and pro-grade venue management.
                     </p>
                     <div class="flex flex-wrap gap-4 pt-4">
-                        <button
-                            class="bg-primary-fixed text-on-primary font-title-md text-title-md px-10 py-4 rounded-full electric-glow hover:scale-105 active:scale-95 transition-all">
+                        <a href="{{ route('venues.index') }}"
+                            class="inline-block bg-primary-fixed text-on-primary font-title-md text-title-md px-10 py-4 rounded-full electric-glow hover:scale-105 active:scale-95 transition-all">
                             Book Your Court
-                        </button>
-                        <button
-                            class="glass-card text-white font-title-md text-title-md px-10 py-4 rounded-full hover:bg-white/10 transition-all">
+                        </a>
+                        <a href="{{ route('venues.index') }}"
+                            class="inline-block glass-card text-white font-title-md text-title-md px-10 py-4 rounded-full hover:bg-white/10 transition-all">
                             Explore Venues
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -374,9 +374,9 @@
                         <div class="flex items-center gap-3 p-3 glass-card rounded-lg border-white/5">
                             <div
                                 class="w-10 h-10 rounded-full bg-primary-fixed/20 flex items-center justify-center text-primary-fixed">
-                                JP</div>
+                                AP</div>
                             <div>
-                                <p class="text-sm font-bold">John Pro</p>
+                                <p class="text-sm font-bold">Adam Pro</p>
                                 <p class="text-xs text-on-surface-variant">Level: Advanced</p>
                             </div>
                             <span
