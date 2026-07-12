@@ -17,49 +17,60 @@
         <div class="flex items-center gap-4">
             @if (Route::has('login'))
                 @auth
-                    <div class="flex items-center max-md:hidden">
-                        <x-dropdown align="right" width="48">
-                            <x-slot name="trigger">
+                    <div class="flex items-center">
+                        <div
+                            class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/5 bg-white/[0.03] inner-glow m-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff00] animate-pulse"></span>
+                            <span class="text-on-surface text-xs font-semibold tracking-wide">
+                                {{ Auth::user()->name }}
+                            </span>
+                        </div>
+                        <div class="relative" x-data="{ open: false }">
+                            <div @click="open = !open">
                                 <button
                                     class="bg-primary-fixed text-on-primary p-2 rounded-full electric-glow hover:scale-105 active:scale-95 transition-all flex items-center justify-center focus:outline-none"
                                     title="{{ Auth::user()->name }}">
                                     <span class="material-symbols-outlined">person</span>
                                 </button>
-                            </x-slot>
+                            </div>
 
-                            <x-slot name="content">
-                                <div class="block px-4 py-2 text-xs text-gray-400 border-b border-gray-100">
-                                    {{ __('Logged in as: ') }} <strong>{{ Auth::user()->name }}</strong>
+                            <div x-show="open" @click.away="open = false" x-cloak
+                                class="absolute right-0 top-full mt-5 w-56 glass-card rounded-2xl p-2 z-50"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 scale-95"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-95">
+                                <div class="block px-4 py-2 text-xs text-white/50 border-b border-white/10">
+                                    Hi, <strong class="text-white/90">{{ Auth::user()->name }}</strong> 👋
                                 </div>
 
-                                <x-dropdown-link :href="route('dashboard')">
-                                    {{ __('Dashboard') }}
-                                </x-dropdown-link>
+                                <a href="{{ route('dashboard') }}" @click="open = false"
+                                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 hover:text-white transition-all text-sm">
+                                    <span class="material-symbols-outlined text-[18px]">dashboard</span>
+                                    Dashboard
+                                </a>
 
-                                <x-dropdown-link :href="route('profile.edit')">
-                                    {{ __('Profile') }}
-                                </x-dropdown-link>
+                                <a href="{{ route('profile.edit') }}" @click="open = false"
+                                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 hover:text-white transition-all text-sm">
+                                    <span class="material-symbols-outlined text-[18px]">account_circle</span>
+                                    Profile
+                                </a>
 
-                                <hr class="border-gray-100my-1">
+                                <hr class="border-white/10 my-1">
 
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-
-                                    <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                    this.closest('form').submit();"
-                                        class="text-red-600 hover:text-red-700">
-                                        {{ __('Log Out') }}
-                                    </x-dropdown-link>
+                                    <button type="submit" @click="open = false"
+                                        class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all text-sm mt-1">
+                                        <span class="material-symbols-outlined text-[18px]">logout</span>
+                                        Logout
+                                    </button>
                                 </form>
-                            </x-slot>
-                        </x-dropdown>
+                            </div>
+                        </div>
                     </div>
-                    <a href="{{ route('dashboard') }}"
-                        class="md:hidden bg-primary-fixed text-on-primary p-2 rounded-full electric-glow hover:scale-105 active:scale-95 transition-all flex items-center justify-center"
-                        title="{{ Auth::user()->name }}">
-                        <span class="material-symbols-outlined">person</span>
-                    </a>
                 @else
                     <a href="{{ route('login') }}"
                         class="text-white font-title-md text-sm px-5 py-2 rounded-full border border-white/20 hover:bg-white/10 hover:border-primary-fixed/50 hover:text-primary-fixed active:scale-95 transition-all max-md:hidden">
@@ -89,7 +100,7 @@
         <a href="{{ route('venues.index') }}"
             class="flex flex-col items-center gap-1 text-on-surface-variant opacity-60 hover:text-primary-fixed/80">
             <span class="material-symbols-outlined">grid_view</span>
-            <span class="font-label-sm text-label-sm">Courts</span>
+            <span class="font-label-sm text-label-sm">Venues</span>
         </a>
         <a href="{{ route('bookings.index') }}"
             class="flex flex-col items-center gap-1 text-on-surface-variant opacity-60 hover:text-primary-fixed/80">
