@@ -213,7 +213,7 @@
                 </div>
 
                 <!-- Form Scroll Area (Protects layout if screen height is very small) -->
-                <div class="flex-1 overflow-y-auto pr-1 -mr-2 space-y-4 min-h-0">
+                <div class="flex-1 overflow-y-auto px-8 -mx-8 space-y-4 min-h-0">
                     <form method="POST" action="{{ route('login') }}" class="space-y-4">
                         @csrf
 
