@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>{{ $venue->name }} - CourtGlass</title>
+<title>{{ $venue->name }} - CourtYK</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
@@ -134,31 +135,7 @@
     $facilities = config('facilities');
 @endphp
 
-<!-- Top AppBar -->
-<header class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-3xl border-b border-white/10 shadow-[0px_20px_40px_rgba(0,0,0,0.5)]">
-<div class="flex items-center justify-between px-gutter h-16 w-full max-w-7xl mx-auto">
-<div class="flex items-center gap-4">
-<button onclick="history.back()" class="md:hidden text-on-surface-variant hover:bg-white/5 transition-colors p-2 rounded-full scale-95 active:scale-90 transition-transform">
-<span class="material-symbols-outlined">arrow_back</span>
-</button>
-<h1 class="font-display-lg text-headline-lg-mobile italic tracking-tighter text-primary-fixed">CourtYK</h1>
-</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="font-title-md text-title-md text-on-surface-variant hover:bg-white/5 transition-colors px-4 py-2 rounded-lg" href="{{ url('/') }}">Home</a>
-<a class="font-title-md text-title-md text-primary-fixed hover:bg-white/5 transition-colors px-4 py-2 rounded-lg" href="{{ route('venues.index') }}">Venues</a>
-<a class="font-title-md text-title-md text-on-surface-variant hover:bg-white/5 transition-colors px-4 py-2 rounded-lg" href="{{ route('bookings.index') }}">Bookings</a>
-<a class="font-title-md text-title-md text-on-surface-variant hover:bg-white/5 transition-colors px-4 py-2 rounded-lg" href="{{ route('profile.edit') }}">Profile</a>
-</nav>
-<div class="flex items-center gap-2">
-<button class="text-primary-fixed hover:bg-white/5 transition-colors p-2 rounded-full scale-95 active:scale-90 transition-transform">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-<a href="{{ route('profile.edit') }}" class="text-primary-fixed hover:bg-white/5 transition-colors p-2 rounded-full scale-95 active:scale-90 transition-transform">
-<span class="material-symbols-outlined">person</span>
-</a>
-</div>
-</div>
-</header>
+<x-navbar-landing />
 
 <main class="pt-24 pb-32 px-gutter min-h-screen max-w-7xl mx-auto">
 
@@ -269,27 +246,7 @@
 
 </main>
 
-<!-- Bottom NavBar (Mobile Only) -->
-<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container-lowest/40 backdrop-blur-3xl border-t border-white/15 rounded-t-xl shadow-[0px_-10px_30px_rgba(0,0,0,0.3)]">
-<div class="flex justify-around items-center pt-3 pb-8 px-4 w-full">
-<a class="flex flex-col items-center gap-1 text-on-surface-variant opacity-60 hover:text-primary-fixed/80" href="{{ url('/') }}">
-<span class="material-symbols-outlined">stadium</span>
-<span class="font-label-sm text-label-sm">Home</span>
-</a>
-<a class="flex flex-col items-center gap-1 text-primary-fixed" href="{{ route('venues.index') }}">
-<span class="material-symbols-outlined">grid_view</span>
-<span class="font-label-sm text-label-sm">Venues</span>
-</a>
-<a class="flex flex-col items-center gap-1 text-on-surface-variant opacity-60 hover:text-primary-fixed/80" href="{{ route('bookings.index') }}">
-<span class="material-symbols-outlined">confirmation_number</span>
-<span class="font-label-sm text-label-sm">Bookings</span>
-</a>
-<a class="flex flex-col items-center gap-1 text-on-surface-variant opacity-60 hover:text-primary-fixed/80" href="{{ route('profile.edit') }}">
-<span class="material-symbols-outlined">account_circle</span>
-<span class="font-label-sm text-label-sm">Profile</span>
-</a>
-</div>
-</nav>
+
 
 <script>
         document.querySelectorAll('button').forEach(btn => {
