@@ -313,7 +313,7 @@
                     </div>
 
                     <div x-show="open" @click.away="open = false" x-cloak
-                        class="absolute right-0 top-full mt-3 w-56 glass-card rounded-2xl p-2 z-50"
+                        class="absolute right-0 top-full mt-6 w-56 glass-card rounded-2xl p-2 z-50"
                         x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
                         <a href="{{ route('profile.edit') }}" @click="open = false"
