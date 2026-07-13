@@ -1,3 +1,86 @@
+<style>
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-20px) rotate(2deg);
+        }
+    }
+
+    @keyframes pulse-subtle {
+
+        0%,
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+    }
+
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-pulse-subtle {
+        animation: pulse-subtle 3s ease-in-out infinite;
+    }
+
+    .glass-card {
+        background: rgba(14, 14, 14, 0.4);
+        backdrop-filter: blur(30px);
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        border-left: 0.5px solid rgba(255, 255, 255, 0.1);
+        border-right: 0.5px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .liquid-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 3rem;
+        mask-image: radial-gradient(white, black);
+    }
+
+    .electric-glow {
+        box-shadow: 0 0 20px rgba(202, 243, 0, 0.4);
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #131313;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #2a2a2a;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #caf300;
+    }
+
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
 <header
     class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-3xl border-b border-white/10 shadow-[0px_20px_40px_rgba(0,0,0,0.5)]">
     <nav class="flex items-center justify-between px-gutter h-16 w-full max-w-7xl mx-auto">
@@ -25,7 +108,7 @@
                                 {{ Auth::user()->name }}
                             </span>
                         </div>
-                        <div class="relative" x-data="{ open: false }">
+                        <div class="relative" x-data="{ open: false }" @scroll.window="open = false">
                             <div @click="open = !open">
                                 <button
                                     class="bg-primary-fixed text-on-primary p-2 rounded-full electric-glow hover:scale-105 active:scale-95 transition-all flex items-center justify-center focus:outline-none"
@@ -37,8 +120,7 @@
                             <div x-show="open" @click.away="open = false" x-cloak
                                 class="absolute right-0 top-full mt-5 w-56 glass-card rounded-2xl p-2 z-50"
                                 x-transition:enter="transition ease-out duration-200"
-                                x-transition:enter-start="opacity-0 scale-95"
-                                x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
                                 x-transition:leave="transition ease-in duration-75"
                                 x-transition:leave-start="opacity-100 scale-100"
                                 x-transition:leave-end="opacity-0 scale-95">
