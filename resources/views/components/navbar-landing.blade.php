@@ -81,6 +81,13 @@
         transform: translateY(0);
     }
 </style>
+@php
+    $isHome = request()->path() === '/';
+    $isVenues = request()->routeIs('venues.*');
+    $isBookings = request()->routeIs('bookings.*');
+    $isDashboard = request()->routeIs('dashboard');
+@endphp
+
 <header
     class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-3xl border-b border-white/10 shadow-[0px_20px_40px_rgba(0,0,0,0.5)]">
     <nav class="flex items-center justify-between px-gutter h-16 w-full max-w-7xl mx-auto">
@@ -90,10 +97,11 @@
             </span>
         </div>
         <div class="hidden md:flex items-center gap-8">
-            <a class="text-primary-fixed font-title-md text-title-md transition-colors" href="/">Home</a>
-            <a class="text-on-surface-variant font-title-md text-title-md hover:bg-white/5 transition-colors px-3 py-1 rounded"
+            <a class="{{ $isHome ? 'text-primary-fixed' : 'text-on-surface-variant hover:bg-white/5 transition-colors px-3 py-1 rounded' }} font-title-md text-title-md transition-colors"
+                href="/">Home</a>
+            <a class="{{ $isVenues ? 'text-primary-fixed' : 'text-on-surface-variant hover:bg-white/5 transition-colors px-3 py-1 rounded' }} font-title-md text-title-md transition-colors"
                 href="/venues">Venues</a>
-            <a class="text-on-surface-variant font-title-md text-title-md hover:bg-white/5 transition-colors px-3 py-1 rounded"
+            <a class="{{ $isBookings ? 'text-primary-fixed' : 'text-on-surface-variant hover:bg-white/5 transition-colors px-3 py-1 rounded' }} font-title-md text-title-md transition-colors"
                 href="/my-bookings">Bookings</a>
         </div>
 
@@ -174,26 +182,26 @@
 <footer
     class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-container-lowest/40 backdrop-blur-3xl border-t border-white/15 shadow-[0px_-10px_30px_rgba(0,0,0,0.3)]">
     <div class="flex justify-around items-center pt-3 pb-6 px-4 w-full">
-        <a href="#"
-            class="flex flex-col items-center gap-1 text-primary-fixed drop-shadow-[0_0_8px_rgba(202,243,0,0.5)] animate-pulse-subtle">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stadium</span>
+        <a href="{{ url('/') }}"
+            class="flex flex-col items-center gap-1 {{ $isHome ? 'text-primary-fixed drop-shadow-[0_0_8px_rgba(202,243,0,0.5)] animate-pulse-subtle' : 'text-on-surface-variant opacity-60 hover:text-primary-fixed/80' }}">
+            <span class="material-symbols-outlined" {{ $isHome ? 'style=font-variation-settings:"FILL" 1' : '' }}>stadium</span>
             <span class="font-label-sm text-label-sm">Home</span>
         </a>
         <a href="{{ route('venues.index') }}"
-            class="flex flex-col items-center gap-1 text-on-surface-variant opacity-60 hover:text-primary-fixed/80">
-            <span class="material-symbols-outlined">grid_view</span>
+            class="flex flex-col items-center gap-1 {{ $isVenues ? 'text-primary-fixed drop-shadow-[0_0_8px_rgba(202,243,0,0.5)] animate-pulse-subtle' : 'text-on-surface-variant opacity-60 hover:text-primary-fixed/80' }}">
+            <span class="material-symbols-outlined" {{ $isVenues ? 'style=font-variation-settings:"FILL" 1' : '' }}>grid_view</span>
             <span class="font-label-sm text-label-sm">Venues</span>
         </a>
         <a href="{{ route('bookings.index') }}"
-            class="flex flex-col items-center gap-1 text-on-surface-variant opacity-60 hover:text-primary-fixed/80">
-            <span class="material-symbols-outlined">confirmation_number</span>
+            class="flex flex-col items-center gap-1 {{ $isBookings ? 'text-primary-fixed drop-shadow-[0_0_8px_rgba(202,243,0,0.5)] animate-pulse-subtle' : 'text-on-surface-variant opacity-60 hover:text-primary-fixed/80' }}">
+            <span class="material-symbols-outlined" {{ $isBookings ? 'style=font-variation-settings:"FILL" 1' : '' }}>confirmation_number</span>
             <span class="font-label-sm text-label-sm">Bookings</span>
         </a>
         @auth
             <a href="{{ route('dashboard') }}"
-                class="flex flex-col items-center gap-1 text-on-surface-variant opacity-60 hover:text-primary-fixed/80">
-                <span class="material-symbols-outlined">account_circle</span>
-                <span class="font-label-sm text-label-sm">Profile</span>
+                class="flex flex-col items-center gap-1 {{ $isDashboard ? 'text-primary-fixed drop-shadow-[0_0_8px_rgba(202,243,0,0.5)] animate-pulse-subtle' : 'text-on-surface-variant opacity-60 hover:text-primary-fixed/80' }}">
+                <span class="material-symbols-outlined" {{ $isDashboard ? 'style=font-variation-settings:"FILL" 1' : '' }}>stadium</span>
+                <span class="font-label-sm text-label-sm">Dashboard</span>
             </a>
         @else
             <a href="{{ route('login') }}"
