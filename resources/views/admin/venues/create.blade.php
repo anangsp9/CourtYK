@@ -1,128 +1,249 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.admin')
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tambah Venue | Admin Panel</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap">
-</head>
+@section('content')
+<style>
+    .liquid-glass {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        border-left: 0.5px solid rgba(255, 255, 255, 0.1);
+        border-right: 0.5px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(30px);
+    }
+    .bloom-lime {
+        box-shadow: 0 0 20px rgba(202, 243, 0, 0.4);
+    }
+    .glass-card-highlight {
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+</style>
 
-<body class="bg-gray-50 text-gray-800 font-sans min-h-screen p-6">
+<div class="pb-32">
 
-    <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md border border-gray-200 mt-10">
-
-        <div class="mb-6 border-b border-gray-200 pb-4">
-            <h1 class="text-2xl font-bold text-gray-900">Tambah Venue</h1>
-            <p class="text-sm text-gray-500 mt-1">Lengkapi formulir di bawah ini untuk menambahkan data aset fasilitas
-                olahraga baru.</p>
+    @if ($errors->any())
+        <div class="mb-6 rounded-xl bg-red-500/10 border border-red-500/20 p-4 backdrop-blur-[10px]">
+            <div class="flex items-center gap-2.5 text-red-400 mb-2">
+                <span class="material-symbols-outlined text-lg">error</span>
+                <span class="text-sm font-semibold">Terdapat kesalahan pada formulir</span>
+            </div>
+            <ul class="list-disc list-inside text-sm text-red-300 space-y-1">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
+    @endif
 
-        <form action="{{ route('admin.venues.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
-            @csrf
-
-            <!-- Nama Venue -->
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Venue</label>
-                <input type="text" name="name" required
-                    class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                    placeholder="Contoh: Skyline Padel Arena" />
-            </div>
-
-            <!-- Alamat Lapangan -->
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Alamat Lapangan</label>
-                <input type="text" name="address" required
-                    class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                    placeholder="Jalan, kota, atau wilayah lokasi lapangan" />
-            </div>
-
-            <!-- Gambar Venue -->
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Gambar Venue</label>
-                <input type="file" name="image" accept="image/*"
-                    class="w-full border border-gray-300 rounded-lg p-2 text-sm bg-gray-50 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer" />
-                @error('image')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Deskripsi -->
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Deskripsi</label>
-                <textarea name="description" rows="4"
-                    class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition resize-none"
-                    placeholder="Tuliskan detail keunggulan atau fasilitas yang tersedia..."></textarea>
-            </div>
-
-            <!-- Fasilitas Unggulan -->
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-3">
-                    Fasilitas Unggulan
-                </label>
-
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-
-                    @foreach (config('facilities') as $key => $facility)
-                        <label
-                            class="flex items-center gap-3 rounded-lg border border-gray-200 p-3 cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
-
-                            <input type="checkbox" name="featured_facilities[]" value="{{ $key }}"
-                                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                {{ in_array($key, old('featured_facilities', [])) ? 'checked' : '' }}>
-
-                            <span class="material-symbols-outlined text-gray-600">
-                                {{ $facility['icon'] }}
-                            </span>
-
-                            <span class="text-sm text-gray-700">
-                                {{ $facility['label'] }}
-                            </span>
-
-                        </label>
-                    @endforeach
-
-                </div>
-
-                @error('featured_facilities')
-                    <p class="text-sm text-red-500 mt-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-            </div>
-
-            <!-- Jam Operasional -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Jam Buka</label>
-                    <input type="time" name="open_time" required
-                        class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
-                </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Jam Tutup</label>
-                    <input type="time" name="close_time" required
-                        class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
-                </div>
-            </div>
-
-            <!-- Tombol Aksi -->
-            <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-6">
-                <button type="button" onclick="window.history.back()"
-                    class="px-5 py-2.5 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
-                    Batal
-                </button>
-                <button type="submit"
-                    class="px-6 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition">
-                    Simpan Venue
-                </button>
-            </div>
-        </form>
-
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
+        <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-on-surface tracking-tight">Venue Onboarding</h2>
+            <p class="text-on-surface-variant mt-1 max-w-lg text-sm">Complete the registration process to bring your premium sports venue into the network.</p>
+        </div>
+        <div class="flex items-center gap-2 px-4 py-2 bg-primary-container/10 border border-primary-container/30 rounded-full">
+            <span class="w-2 h-2 rounded-full bg-primary-fixed"></span>
+            <span class="text-[11px] font-bold text-primary-fixed uppercase tracking-wider">Draft Mode</span>
+        </div>
     </div>
 
-</body>
+    <form action="{{ route('admin.venues.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-</html>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+            <div class="md:col-span-7 space-y-6">
+
+                <div class="liquid-glass rounded-2xl p-8 glass-card-highlight">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center border border-primary-container/40">
+                            <span class="material-symbols-outlined text-primary-fixed">info</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-on-surface">Basic Information</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1 uppercase tracking-wider">Venue Name</label>
+                            <input type="text" name="name" id="name" value="{{ old('name') }}" required
+                                class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary-fixed/50 focus:border-primary-fixed outline-none transition-all placeholder:text-white/20"
+                                placeholder="e.g. Skyline Padel Arena">
+                            @error('name')
+                                <p class="text-red-400 text-xs mt-1.5 ml-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="address" class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1 uppercase tracking-wider">Location / Address</label>
+                            <div class="relative">
+                                <input type="text" name="address" id="address" value="{{ old('address') }}" required
+                                    class="w-full bg-white/5 border border-white/10 rounded-xl p-4 pl-12 text-on-surface focus:ring-2 focus:ring-primary-fixed/50 focus:border-primary-fixed outline-none transition-all placeholder:text-white/20"
+                                    placeholder="Full street address, city, zip">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">location_on</span>
+                            </div>
+                            @error('address')
+                                <p class="text-red-400 text-xs mt-1.5 ml-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="description" class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1 uppercase tracking-wider">Description</label>
+                            <textarea name="description" id="description" rows="4"
+                                class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary-fixed/50 focus:border-primary-fixed outline-none transition-all placeholder:text-white/20 resize-none"
+                                placeholder="Tell users what makes your venue special...">{{ old('description') }}</textarea>
+                            @error('description')
+                                <p class="text-red-400 text-xs mt-1.5 ml-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="liquid-glass rounded-2xl p-8 glass-card-highlight">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center border border-primary-container/40">
+                            <span class="material-symbols-outlined text-primary-fixed">schedule</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-on-surface">Operational Details</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label for="open_time" class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1 uppercase tracking-wider">Opening Time</label>
+                            <input type="time" name="open_time" id="open_time" value="{{ old('open_time') }}" required
+                                class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary-fixed/50 focus:border-primary-fixed outline-none transition-all [color-scheme:dark]">
+                            @error('open_time')
+                                <p class="text-red-400 text-xs mt-1.5 ml-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="close_time" class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1 uppercase tracking-wider">Closing Time</label>
+                            <input type="time" name="close_time" id="close_time" value="{{ old('close_time') }}" required
+                                class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary-fixed/50 focus:border-primary-fixed outline-none transition-all [color-scheme:dark]">
+                            @error('close_time')
+                                <p class="text-red-400 text-xs mt-1.5 ml-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="md:col-span-5 space-y-6">
+
+                <div class="liquid-glass rounded-2xl p-8 glass-card-highlight">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center border border-primary-container/40">
+                            <span class="material-symbols-outlined text-primary-fixed">image</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-on-surface">Media Gallery</h3>
+                    </div>
+                    <div>
+                        <label for="image" class="relative border-2 border-dashed border-white/10 rounded-xl p-10 flex flex-col items-center justify-center text-center group hover:border-primary-fixed/50 transition-all cursor-pointer bg-white/[0.02] hover:bg-white/5 overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary-fixed/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                            <span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary-fixed group-hover:scale-110 transition-all mb-4">upload_file</span>
+                            <p class="text-sm font-bold text-on-surface">Drag &amp; Drop Cover Image</p>
+                            <p class="text-xs text-on-surface-variant/60 mt-2">Recommended: 1920x1080 (JPG, PNG, WebP) max 2MB</p>
+                            <input type="file" name="image" id="image" accept="image/jpeg,image/png,image/webp" class="hidden">
+                        </label>
+                        <div id="image-preview" class="mt-4 hidden">
+                            <div class="relative rounded-xl overflow-hidden border border-white/10 aspect-video">
+                                <img id="preview-img" class="w-full h-full object-cover">
+                                <button type="button" id="remove-image" class="absolute top-2 right-2 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-red-500 transition-all">
+                                    <span class="material-symbols-outlined text-[18px]">close</span>
+                                </button>
+                            </div>
+                        </div>
+                        @error('image')
+                            <p class="text-red-400 text-xs mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="liquid-glass rounded-2xl p-7 glass-card-highlight">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-9 h-9 rounded-xl bg-primary-container/20 flex items-center justify-center border border-primary-container/40">
+                            <span class="material-symbols-outlined text-primary-fixed text-xl">checklist</span>
+                        </div>
+                        <h3 class="text-[17px] font-bold text-on-surface">Facilities &amp; Amenities</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        @foreach (config('facilities') as $key => $facility)
+                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-primary-fixed/30 hover:bg-white/[0.07] transition-all cursor-pointer group">
+                                <input type="checkbox" name="featured_facilities[]" value="{{ $key }}"
+                                    class="w-[18px] h-[18px] rounded border-white/20 text-primary-fixed focus:ring-primary-fixed/50 bg-transparent shrink-0"
+                                    {{ in_array($key, old('featured_facilities', [])) ? 'checked' : '' }}>
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-fixed transition-colors text-xl shrink-0">{{ $facility['icon'] }}</span>
+                                <span class="text-sm font-medium text-on-surface truncate">{{ $facility['label'] }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                    @error('featured_facilities')
+                        <p class="text-red-400 text-xs mt-3">{{ $message }}</p>
+                    @enderror
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="fixed bottom-0 right-0 left-0 lg:left-60 h-20 bg-surface-container/70 backdrop-blur-2xl border-t border-white/10 flex items-center justify-between px-4 sm:px-6 lg:px-8 z-40">
+            <div class="flex items-center gap-3 text-on-surface-variant">
+                <span class="material-symbols-outlined text-primary-fixed text-lg">auto_awesome</span>
+                <p class="text-sm hidden sm:block">Unsaved changes will be lost if you leave.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="{{ route('admin.venues.index') }}"
+                   class="px-6 py-2.5 rounded-full text-on-surface-variant font-medium hover:bg-white/5 transition-all text-sm">
+                    Cancel
+                </a>
+                <button type="submit"
+                        class="px-8 py-2.5 bg-primary-container text-on-primary-fixed font-bold rounded-full bloom-lime hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-2 text-sm">
+                    <span class="material-symbols-outlined text-lg">publish</span>
+                    Publish Venue
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    document.querySelectorAll('.glass-card-highlight').forEach(card => {
+        const inputs = card.querySelectorAll('input, textarea');
+        inputs.forEach(el => {
+            el.addEventListener('focus', () => {
+                card.style.boxShadow = '0 0 50px rgba(202, 243, 0, 0.05)';
+                card.style.borderColor = 'rgba(202, 243, 0, 0.3)';
+            });
+            el.addEventListener('blur', () => {
+                card.style.boxShadow = '';
+                card.style.borderColor = '';
+            });
+        });
+    });
+
+    const fileInput = document.getElementById('image');
+    const preview = document.getElementById('image-preview');
+    const previewImg = document.getElementById('preview-img');
+    const removeBtn = document.getElementById('remove-image');
+
+    fileInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                preview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    removeBtn.addEventListener('click', function() {
+        fileInput.value = '';
+        preview.classList.add('hidden');
+        previewImg.src = '';
+    });
+
+    document.querySelector('label[for="image"]').addEventListener('click', function(e) {
+        if (e.target.tagName !== 'INPUT') {
+            fileInput.click();
+        }
+    });
+</script>
+@endsection

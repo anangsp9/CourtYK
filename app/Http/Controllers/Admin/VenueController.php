@@ -15,7 +15,7 @@ class VenueController extends Controller
      */
     public function index()
     {
-        $venues = Venue::latest()->paginate(10);
+        $venues = Venue::withCount('courts')->latest()->paginate(10);
 
         return view('admin.venues.index', compact('venues'));
     }
