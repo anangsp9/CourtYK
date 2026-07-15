@@ -14,6 +14,9 @@ class BookingController extends Controller
             'court.venue',
             'payment',
         ])
+            ->when(request('status'), function ($q, $status) {
+                $q->where('status', $status);
+            })
             ->latest()
             ->paginate(10);
 
