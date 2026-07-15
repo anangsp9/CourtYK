@@ -30,6 +30,19 @@
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.2);
+        }
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -42,6 +55,24 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(255,255,255,0.16);
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 1000px rgba(20, 20, 20, 0.95) inset !important;
+            -webkit-text-fill-color: #e5e2e1 !important;
+            caret-color: #e5e2e1;
+        }
+
+        input[type='number']::-webkit-outer-spin-button,
+        input[type='number']::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type='number'] {
+            -moz-appearance: textfield;
         }
     </style>
     <script>
