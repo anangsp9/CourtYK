@@ -1,106 +1,137 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+<style>
+    .bloom-lime {
+        box-shadow: 0 0 20px rgba(202, 243, 0, 0.4);
+    }
+</style>
 
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-900">
-                Court Management
-            </h1>
+<div class="max-w-7xl mx-auto">
 
-            <a href="{{ route('admin.courts.create') }}"
-                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition">
-                ➕ Tambah Court
-            </a>
+    {{-- Flash Messages --}}
+    @if (session('success'))
+        <div class="mb-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 p-4 text-sm flex items-center gap-2.5 backdrop-blur-[10px]">
+            <span class="material-symbols-outlined text-lg">check_circle</span>
+            {{ session('success') }}
         </div>
+    @endif
 
-        @if (session('success'))
-            <div class="mb-4 p-4 bg-green-100 border border-green-200 text-green-800 rounded-lg shadow-sm">
-                {{ session('success') }}
+    {{-- Header --}}
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
+        <div class="flex items-center gap-3">
+            <div class="p-1.5 bg-primary-container/10 rounded-lg text-primary-fixed">
+                <span class="material-symbols-outlined text-lg">sports_tennis</span>
             </div>
-        @endif
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-on-surface tracking-tight">Court Management</h2>
+                <p class="text-on-surface-variant mt-1 text-sm">{{ $courts->total() }} total courts</p>
+            </div>
+        </div>
+        <a href="{{ route('admin.courts.create') }}"
+           class="px-5 py-2.5 rounded-xl bg-primary-container text-on-primary-fixed font-bold flex items-center gap-2 hover:scale-[1.02] active:scale-95 transition-all bloom-lime">
+            <span class="material-symbols-outlined text-lg">add</span>
+            Tambah Court
+        </a>
+    </div>
 
-        <div class="bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr
-                            class="bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                            <th class="px-6 py-4">ID</th>
-                            <th class="px-6 py-4">Venue</th>
-                            <th class="px-6 py-4">Nama Court</th>
-                            <th class="px-6 py-4">Harga/Jam</th>
-                            <th class="px-6 py-4 text-center">Aksi</th>
-                        </tr>
-                    </thead>
-
-                    <tbody class="divide-y divide-gray-200 bg-white text-sm text-gray-700">
-                        @forelse($courts as $court)
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-4 font-medium text-gray-900">
-                                    #{{ $court->id }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $court->venue->name }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="font-semibold text-gray-900">
-                                        {{ $court->name }}
+    {{-- Courts Table --}}
+    <section class="glass-card rounded-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="text-on-surface-variant font-label-sm uppercase tracking-widest bg-white/[0.03] text-xs">
+                        <th class="px-4 lg:px-6 py-3.5 w-16">ID</th>
+                        <th class="px-4 lg:px-6 py-3.5">Venue</th>
+                        <th class="px-4 lg:px-6 py-3.5">Nama Court</th>
+                        <th class="px-4 lg:px-6 py-3.5">Harga/Jam</th>
+                        <th class="px-4 lg:px-6 py-3.5 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/[0.04]">
+                    @forelse($courts as $court)
+                        <tr class="group hover:bg-white/[0.04] transition-all duration-300">
+                            <td class="px-4 lg:px-6 py-4 lg:py-5">
+                                <span class="text-on-surface-variant/50 text-xs font-mono">#{{ $court->id }}</span>
+                            </td>
+                            <td class="px-4 lg:px-6 py-4 lg:py-5">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-container/30 to-primary-container/5 flex items-center justify-center border border-primary-fixed/20 shrink-0">
+                                        <span class="material-symbols-outlined text-[16px] text-primary-fixed">location_on</span>
                                     </div>
-
-                                    @php
-                                        $floor = config('courts.floor_types.' . $court->floor_type);
-                                        $type = config('courts.court_types.' . $court->court_type);
-                                    @endphp
-
-                                    @if ($floor && $type)
-                                        <div class="mt-1 flex items-center gap-2 text-xs text-gray-500">
-                                            <span>
+                                    <span class="text-sm text-on-surface">{{ $court->venue->name }}</span>
+                                </div>
+                            </td>
+                            <td class="px-4 lg:px-6 py-4 lg:py-5">
+                                <div class="flex flex-col gap-1.5">
+                                    <span class="font-medium text-sm text-on-surface group-hover:text-primary-fixed transition-colors">
+                                        {{ $court->name }}
+                                    </span>
+                                    <div class="flex items-center gap-1.5">
+                                        @php
+                                            $floor = config('courts.floor_types.' . $court->floor_type);
+                                            $type = config('courts.court_types.' . $court->court_type);
+                                        @endphp
+                                        @if ($floor)
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-medium border bg-primary-container/10 text-primary-fixed border-primary-fixed/20">
                                                 {{ $floor['label'] }}
                                             </span>
-
-                                            <span>&bull;</span>
-
-                                            <span>
+                                        @endif
+                                        @if ($type)
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-medium border @if($type['label'] === 'Indoor') bg-blue-500/10 text-blue-400 border-blue-400/25 @else bg-amber-500/10 text-amber-400 border-amber-400/25 @endif">
                                                 {{ $type['label'] }}
                                             </span>
-                                        </div>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4 font-semibold text-emerald-600 whitespace-nowrap">
-                                    Rp {{ number_format($court->price_per_hour, 0, ',', '.') }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center justify-center gap-3">
-                                        <a href="{{ route('admin.courts.edit', $court) }}"
-                                            class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded shadow-sm transition">
-                                            Edit
-                                        </a>
-
-                                        <form action="{{ route('admin.courts.destroy', $court) }}" method="POST"
-                                            class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus court ini?')"
-                                                class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded shadow-sm transition">
-                                                Delete
-                                            </button>
-                                        </form>
+                                        @endif
                                     </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="px-6 py-8 text-center text-gray-500 italic">
-                                    Belum ada data court.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                                </div>
+                            </td>
+                            <td class="px-4 lg:px-6 py-4 lg:py-5">
+                                <span class="font-semibold text-sm text-emerald-400 tabular-nums">Rp {{ number_format($court->price_per_hour, 0, ',', '.') }}</span>
+                            </td>
+                            <td class="px-4 lg:px-6 py-4 lg:py-5">
+                                <div class="flex items-center justify-center gap-2">
+                                    <a href="{{ route('admin.courts.edit', $court) }}"
+                                       class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-white/5 transition-all">
+                                        <span class="material-symbols-outlined text-sm">edit</span>
+                                    </a>
+                                    <form action="{{ route('admin.courts.destroy', $court) }}" method="POST"
+                                          onsubmit="return confirm('Apakah Anda yakin ingin menghapus court ini?')" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="p-2 rounded-lg text-on-surface-variant hover:text-red-400 hover:bg-red-500/10 transition-all cursor-pointer">
+                                            <span class="material-symbols-outlined text-sm">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5">
+                                <div class="flex flex-col items-center justify-center py-20 px-8">
+                                    <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
+                                        <span class="material-symbols-outlined text-3xl text-on-surface-variant/50">sports_tennis</span>
+                                    </div>
+                                    <p class="text-lg font-semibold text-on-surface-variant mb-1">Belum ada data court</p>
+                                    <p class="text-sm text-on-surface-variant/60 mb-6">Mulai dengan menambahkan court pertama Anda.</p>
+                                    <a href="{{ route('admin.courts.create') }}"
+                                       class="px-6 py-2.5 bg-primary-container text-on-primary-fixed font-bold rounded-xl bloom-lime hover:scale-[1.02] active:scale-95 transition-all inline-flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-lg">add</span>
+                                        Tambah Court
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
+        @if($courts->hasPages())
+            <div class="px-4 lg:px-6 py-4 border-t border-white/[0.06]">
+                {{ $courts->links() }}
+            </div>
+        @endif
+    </section>
 
-    </div>
+</div>
 @endsection
