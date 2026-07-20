@@ -170,13 +170,14 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="relative shrink-0">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-fixed/30 to-primary-fixed/5 border border-primary-fixed/25 flex items-center justify-center shadow-[0_0_15px_rgba(202,243,0,0.15)]">
-                            <span class="material-symbols-outlined text-primary-fixed text-xl">sports_tennis</span>
+                        <div class="flex items-center justify-center">
+                            <img src="{{ asset('images/courtyk-logo.png') }}" alt="CourtYK" class="w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(202,243,0,0.6)]">
                         </div>
-                        <div class="absolute -inset-1 rounded-xl bg-primary-fixed/10 blur-md -z-10"></div>
                     </div>
                     <div>
-                        <h1 class="text-xl font-extrabold text-primary-fixed drop-shadow-[0_0_12px_rgba(202,243,0,0.6)] leading-tight">CourtYK</h1>
+                        <span class="text-2xl font-black italic tracking-tighter text-white drop-shadow-[0_0_14px_rgba(202,243,0,0.7)]">
+                                Court<span class="text-primary-fixed">YK</span>
+                            </span>
                         <div class="flex items-center gap-1.5 mt-0.5">
                             <span class="w-1.5 h-1.5 rounded-full bg-primary-fixed shadow-[0_0_6px_rgba(202,243,0,0.8)]"></span>
                             <p class="text-[10px] text-on-surface-variant tracking-[0.15em] uppercase font-medium">Admin Console</p>
