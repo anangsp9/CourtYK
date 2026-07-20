@@ -9,7 +9,7 @@
 
 @extends('layouts.glass')
 
-@section('title', 'CourtGlass | Dashboard')
+@section('title', 'CourtYK | Dashboard')
 
 @section('content')
 <div class="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">

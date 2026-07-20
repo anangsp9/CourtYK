@@ -1,6 +1,6 @@
 @extends('layouts.glass')
 
-@section('title', 'CourtGlass | Riwayat Booking Saya')
+@section('title', 'CourtYK | Riwayat Booking Saya')
 
 @section('content')
     {{-- Header Section --}}

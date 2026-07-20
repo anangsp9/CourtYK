@@ -1,6 +1,6 @@
 @extends('layouts.glass')
 
-@section('title', 'CourtGlass | Profile')
+@section('title', 'CourtYK | Profile')
 
 @section('content')
 <div class="mb-14">

@@ -17,7 +17,7 @@
         </div>
 
         {{-- Filter Bar --}}
-        <div class="glass-card rounded-lg p-4 lg:p-5">
+        <div class="glass-card rounded-lg p-4 lg:p-5 relative z-10">
             <form method="GET" class="flex flex-wrap items-end gap-3">
                 <div class="flex-1 min-w-[200px]">
                     <label class="text-[11px] text-on-surface-variant uppercase tracking-wider mb-1.5 block">Search</label>
@@ -27,14 +27,49 @@
                             class="w-full bg-white/5 border border-white/10 rounded-lg py-2.5 pl-9 pr-3 text-sm text-on-surface placeholder:text-on-surface-variant/40 focus:ring-1 focus:ring-primary-fixed focus:outline-none backdrop-blur-md transition-all">
                     </div>
                 </div>
-                <div>
+                <div x-data="{
+                    open: false,
+                    selected: '{{ request('role', '') }}',
+                    options: [
+                        { value: '', label: 'Semua Role', icon: 'group' },
+                        { value: 'admin', label: 'Admin', icon: 'shield' },
+                        { value: 'user', label: 'User', icon: 'person' },
+                    ],
+                    select(val) {
+                        this.selected = val
+                        this.open = false
+                        this.$nextTick(() => this.$el.closest('form').submit())
+                    }
+                }" class="relative">
                     <label class="text-[11px] text-on-surface-variant uppercase tracking-wider mb-1.5 block">Role</label>
-                    <select name="role" onchange="this.form.submit()"
-                        class="bg-white/5 border border-white/10 rounded-lg py-2.5 px-3 text-sm text-on-surface focus:ring-1 focus:ring-primary-fixed focus:outline-none backdrop-blur-md transition-all">
-                        <option value="" class="bg-surface">Semua Role</option>
-                        <option value="admin" @selected(request('role') == 'admin') class="bg-surface">Admin</option>
-                        <option value="user" @selected(request('role') == 'user') class="bg-surface">User</option>
-                    </select>
+                    <button type="button" @click="open = !open"
+                        class="w-full bg-white/5 border border-white/10 rounded-lg py-2.5 px-3 text-sm text-on-surface focus:ring-1 focus:ring-primary-fixed focus:outline-none backdrop-blur-md transition-all flex items-center justify-between gap-2 min-w-[140px]">
+                        <span class="flex items-center gap-2" x-text="options.find(o => o.value === selected)?.label || 'Semua Role'"></span>
+                        <span class="material-symbols-outlined text-sm text-on-surface-variant/60 transition-transform duration-200" :class="open && 'rotate-180'">expand_more</span>
+                    </button>
+                    <div x-show="open" @click.away="open = false" x-cloak
+                        x-transition:enter="transition ease-out duration-150"
+                        x-transition:enter-start="opacity-0 scale-95 -translate-y-2"
+                        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                        x-transition:leave="transition ease-in duration-100"
+                        x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                        x-transition:leave-end="opacity-0 scale-95 -translate-y-2"
+                        class="absolute left-0 right-0 mt-1.5 z-[100] glass-card rounded-lg overflow-hidden">
+                        <div class="py-1">
+                            <template x-for="opt in options" :key="opt.value">
+                                <button type="button" @click="select(opt.value)"
+                                    class="w-full flex items-center gap-3 px-3.5 py-2.5 text-sm transition-all duration-150"
+                                    :class="selected === opt.value
+                                        ? 'bg-primary-container/10 text-primary-fixed'
+                                        : 'text-on-surface-variant hover:bg-white/[0.04] hover:text-on-surface'">
+                                    <span class="material-symbols-outlined text-[16px]" x-text="opt.icon"></span>
+                                    <span class="flex-1 text-left" x-text="opt.label"></span>
+                                    <span x-show="selected === opt.value" class="w-1.5 h-1.5 rounded-full bg-primary-fixed shadow-[0_0_6px_rgba(202,243,0,0.6)]"></span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                    <input type="hidden" name="role" x-model="selected">
                 </div>
                 <button class="bg-primary-fixed text-on-primary-fixed px-5 py-2.5 rounded-lg text-sm font-bold hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-2">
                     <span class="material-symbols-outlined text-sm">search</span>
